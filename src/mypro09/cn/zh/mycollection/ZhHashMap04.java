@@ -1,5 +1,7 @@
 package mypro09.cn.zh.mycollection;
 
+import java.util.HashMap;
+
 /**
  * @author 张辉
  * @Description 自定义 HashMap
@@ -126,6 +128,7 @@ public class ZhHashMap04<K,V> {
 
         System.out.println(m);
         System.out.println(m.size);
+        HashMap mas;
     }
 
 }

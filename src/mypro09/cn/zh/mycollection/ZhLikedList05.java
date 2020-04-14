@@ -1,5 +1,6 @@
 package mypro09.cn.zh.mycollection;
 
+import java.util.LinkedList;
 import java.util.Vector;
 
 /**
@@ -43,7 +44,6 @@ public class ZhLikedList05<E> {
         }
         size++;
     }
-
 
     public void remove(int index) {
         Node temp = getNode(index);
@@ -144,5 +144,6 @@ public class ZhLikedList05<E> {
         System.out.println(list);
         System.out.println(list.get(2));
         Vector ve;
+        LinkedList lst;
     }
 }
