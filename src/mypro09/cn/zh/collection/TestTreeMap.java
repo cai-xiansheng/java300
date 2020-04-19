@@ -17,6 +17,7 @@ public class TestTreeMap {
         treemap1.put(60, "dd");
 
         // 按照key递增的方式排序
+        // foreach 得到的是treemap的key。然后通过key拿value
         for (Integer key : treemap1.keySet()) {
             System.out.println(key + "---" + treemap1.get(key));
         }
@@ -55,6 +56,7 @@ class Emp implements Comparable<Emp>{
 
     @Override
     public int compareTo(Emp o) {
+        // 负数：小于，0：等于，正数：大于
         if (this.salary > o.salary) {
             return 1;
         }else if (this.salary < o.salary) {
