@@ -16,8 +16,8 @@ public class P400 {
 class MyInteger {
     int value;
 
-    public MyInteger() {
-
+    public MyInteger(int value) {
+        this.value = value;
     }
 
     public int getValue() {
@@ -43,11 +43,48 @@ class MyInteger {
             return value > 1;
         }
 
-        for (int i = 2; i <= (int)Math.sqrt(value); i++) {
+        for (int i = 2; i <= (int) Math.sqrt(value); i++) {
             if (value % i == 0) {
                 return false;
             }
         }
         return true;
+    }
+
+
+}
+
+class MyPoint{
+    double x;
+    double y;
+
+    public double getX() {
+        return x;
+    }
+
+    public double getY() {
+        return y;
+    }
+
+    public MyPoint() {
+        this.x = 0;
+        this.y = 0;
+    }
+
+    public MyPoint(double x, double y) {
+        this.x = x;
+        this.y = y;
+    }
+
+    public double distance(MyPoint m) {
+        double x_ = Math.abs(m.getX()-this.x);
+        double y_ = Math.abs(m.getY()-this.y);
+        return Math.sqrt(Math.pow(x_,2)+Math.pow(y_,2));
+    }
+
+    public double distance(double x,double y) {
+        double x_ = Math.abs(x-this.x);
+        double y_ = Math.abs(y-this.y);
+        return Math.sqrt(Math.pow(x_,2)+Math.pow(y_,2));
     }
 }
