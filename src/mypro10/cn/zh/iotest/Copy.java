@@ -13,7 +13,7 @@ import java.io.*;
  */
 public class Copy {
     public static void main(String[] args) {
-        copy("src/mypro10/cn/zh/iotest/IOTest01.java","dest.txt");
+        copy("src/mypro10/cn/zh/iotest/IOTest01.java", "dest.txt");
         //File src = new File("dest.txt");
         //boolean b = src.delete();
         //System.out.println(b);
@@ -21,10 +21,11 @@ public class Copy {
 
     /**
      * 文件的拷贝
+     *
      * @param strPath
      * @param destPath
      */
-    public static void copy(String strPath,String destPath){
+    public static void copy(String strPath, String destPath) {
         // 1. 创建流
         File src = new File(strPath);
         //源头
@@ -32,11 +33,10 @@ public class Copy {
         // 目的地
 
         // 2. 选择流
-        InputStream is = null;
-        OutputStream os = null;
-        try {
-            is = new FileInputStream(src);
-            os = new FileOutputStream(dest);
+
+        try (InputStream is = new FileInputStream(src);
+             OutputStream os = new FileOutputStream(dest)) {
+
             // 3. 操作
             byte[] flush = new byte[1024];
             // 缓冲容器
@@ -53,23 +53,6 @@ public class Copy {
             e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
-        } finally {
-            // 4. 释放资源(分别关闭；先打开的后关闭)
-            try {
-                if (is != null) {
-                    is.close();
-                }
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-            try {
-                if (os != null) {
-                    os.close();
-                }
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-
         }
 
     }

@@ -4,36 +4,34 @@ import java.io.*;
 
 /**
  * @author 张辉
- * @Description IO标准步骤：文件字节输入流
- * 1. 创建源：字节数组，不要太大
+ * @Description 文件字符输入流
+ * 1. 创建源
  * 2. 选择流
  * 3. 操作
- * 4. 释放资源：可以不用处理 GC 会帮我们处理
+ * 4. 释放资源
  * @create 2020-04-25 17:32
  */
-public class IOTest03 {
+public class IOTest05 {
 
     public static void main(String[] args) {
 
         // 1. 创建源
         File src = new File("abc.txt");
         // 2. 选择流
-        InputStream is = null;
+        Reader reader = null;
         try {
-            is = new FileInputStream(src);
+            reader = new FileReader(src);
 
             // 3. 操作（读取）
-            byte[] flush = new byte[3];
+            char[] flush = new char[1024];
             // 缓冲容器
             int len = -1;
             // 接收长度
-            while ((len = is.read(flush)) != -1) {
-                // 字节数组到字符串（解码）
-                String str = new String(flush,0,len);
+            while ((len = reader.read(flush)) != -1) {
+                // 字符数组到字符串
+                String str = new String(flush, 0, len);
                 System.out.println(str);
             }
-
-
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         } catch (IOException e) {
@@ -41,8 +39,8 @@ public class IOTest03 {
         } finally {
             // 4. 释放资源
             try {
-                if (is != null) {
-                    is.close();
+                if (reader != null) {
+                    reader.close();
                 }
             } catch (IOException e) {
                 e.printStackTrace();
