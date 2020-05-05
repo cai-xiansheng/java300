@@ -6,10 +6,10 @@ import java.io.RandomAccessFile;
 
 /**
  * @author 张辉
- * @Description 随机读取和写入流 RandomAccessFile
- * @create 2020-05-04 17:17
+ * @Description 随机流 RandomAccessFile
+ * @create 2020-05-05 6:51
  */
-public class RandTest01 {
+public class RandTest02 {
     public static void main(String[] args) throws IOException {
         // 分多少块
         File src = new File("src/playgame/cn/zh/game/myGameFrame.java");
@@ -43,16 +43,15 @@ public class RandTest01 {
     }
 
     /**
-     * 指定第i块起始位置和实际长度
+     * 指定第i块的起始位置和实际长度
      * @param i
      * @param beginPos
      * @param actualSize
      * @throws IOException
      */
-    public static void split(int i, int beginPos, int actualSize) throws IOException {
-        // 分开思想
-        RandomAccessFile raf = new RandomAccessFile(new File("src/playgame/cn/zh/game/myGameFrame.java"), "r");
-
+    public static void split(int i,int beginPos ,int actualSize) throws IOException {
+        RandomAccessFile raf = new RandomAccessFile(new File("src/playgame/cn/zh/game/myGameFrame.java"),"r");
+        RandomAccessFile raf2 = new RandomAccessFile(new File("src/playgame/cn/zh/game/myGameFrame.java"),"rw");
         // 随机读取
         raf.seek(beginPos);
         // 读取
@@ -60,33 +59,15 @@ public class RandTest01 {
         // 缓冲容器
         int len = -1;
         // 接收长度
-        while ((len = raf.read(flush)) != -1) {
-            System.out.println(new String(flush, 0, len));
-            if (actualSize > len) {
-                System.out.println(new String(flush, 0, len));
+
+        while((len = raf.read(flush))!=-1){
+            if (actualSize>len){
+                // 获取本次读取的所有内容
+                System.out.println(new String(flush,0,len));
                 actualSize -= len;
-            } else {
-                System.out.println(new String(flush, 0, actualSize));
-                break;
+            }else{
+                System.out.println(new String(flush,0,len));
             }
         }
-
-        raf.close();
-    }
-
-    public static void test1() throws IOException {
-        RandomAccessFile raf = new RandomAccessFile(new File("src/playgame/cn/zh/game/myGameFrame.java"), "r");
-        // 随机读取
-        raf.seek(2);
-        // 读取
-        byte[] flush = new byte[1024];
-        // 缓冲容器
-        int len = -1;
-        // 接收长度
-        while ((len = raf.read(flush)) != -1) {
-            System.out.println(new String(flush, 0, len));
-        }
-
-        raf.close();
     }
 }
