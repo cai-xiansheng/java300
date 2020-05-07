@@ -25,6 +25,7 @@ public class ObjectTest {
         // 对象
         oos.writeObject("水解其中味！");
         oos.writeObject(new Date());
+
         Employee emp = new Employee("mayun",400);
         oos.writeObject(emp);
         oos.flush();
