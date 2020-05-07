@@ -138,6 +138,16 @@ class Account {
     public void deposit(double money) {
         this.balance += money;
     }
+
+    @Override
+    public String toString() {
+        return "Account{" +
+                "id=" + this.getId() +
+                ", balance=" + this.getBalance() +
+                ", annualInterestRate=" + this.getAnnualInterestRate() +
+                ", dateCreated=" + this.getDateCreated() +
+                '}';
+    }
 }
 
 class Fan {

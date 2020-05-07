@@ -44,6 +44,21 @@ public class P445_5_4 {
         Employee emp = new Employee("小强","西安","1865431","1234@qq.com","办公剖1号",5000,new MyDate(2010,11,28));
         Faculty fac = new Faculty("小易","北京","1823453","3412@qq.com","前门大街", 50000,new MyDate(2013,11,28),"教学楼一楼","教授");
         Staff sta = new Staff("小华","上海","1893211","2345@qq.com","办公楼2号",4000,new MyDate(2011,11,28),"班长");
+        System.out.println(person.toString());
+        System.out.println(stu.toString());
+        System.out.println(emp.toString());
+        System.out.println(fac.toString());
+        System.out.println(sta.toString());
+    }
+
+    public static void TestAccount(){
+        Account ac = new Account(101,10000);
+        CheckingAccount cac = new CheckingAccount(102,20000,2000);
+        SavingAccount sac = new SavingAccount(103,20000);
+        System.out.println(ac.toString());
+        System.out.println(cac.toString());
+        System.out.println(sac.toString());
+
     }
 }
 
@@ -60,9 +75,14 @@ public class P445_5_4 {
 class CheckingAccount extends Account{
     int overdraft;
 
+    public CheckingAccount(int id, double balance, int overdraft) {
+        super(id, balance);
+        this.overdraft = overdraft;
+    }
+
     @Override
     public void withdraw(double money) {
-        this.withdraw(money);
+        super.withdraw(money);
         if (this.getBalance() < this.overdraft) {
             // 出界
             this.deposit(money);
@@ -70,22 +90,49 @@ class CheckingAccount extends Account{
         }
     }
 
+    public int getOverdraft() {
+        return overdraft;
+    }
+
+    public void setOverdraft(int overdraft) {
+        this.overdraft = overdraft;
+    }
+
     @Override
     public String toString() {
         return "CheckingAccount{" +
-                "overdraft=" + overdraft +
+                "id=" + this.getId() +
+                ", balance=" + this.getBalance() +
+                ", annualInterestRate=" + this.getAnnualInterestRate() +
+                ", dateCreated=" + this.getDateCreated() +
+                "overdraft=" + this.getOverdraft() +
                 '}';
     }
 }
 
 class SavingAccount extends Account{
+
+    public SavingAccount(int id, double balance) {
+        super(id, balance);
+    }
+
     @Override
     public void withdraw(double money) {
-        this.withdraw(money);
+        super.withdraw(money);
         if (this.getBalance() < 0) {
             this.deposit(money);
             System.out.println("此账户不能透支！");
         }
+    }
+
+    @Override
+    public String toString() {
+        return "SavingAccount{" +
+                "id=" + this.getId() +
+                ", balance=" + this.getBalance() +
+                ", annualInterestRate=" + this.getAnnualInterestRate() +
+                ", dateCreated=" + this.getDateCreated() +
+                '}';
     }
 }
 
@@ -158,10 +205,10 @@ class Person {
     @Override
     public String toString() {
         return "Person{" +
-                "name='" + name + '\'' +
-                ", address='" + address + '\'' +
-                ", phone='" + phone + '\'' +
-                ", email='" + email + '\'' +
+                "name='" + this.getName() + '\'' +
+                ", address='" + this.getAddress() + '\'' +
+                ", phone='" + this.getPhone() + '\'' +
+                ", email='" + this.getEmail() + '\'' +
                 '}';
     }
 }
@@ -193,10 +240,18 @@ class Student extends Person {
         this.studentStatus = studentStatus;
     }
 
+    public StudentStatus getStudentStatus() {
+        return studentStatus;
+    }
+
     @Override
     public String toString() {
         return "Student{" +
-                "studentStatus=" + studentStatus +
+                "name='" + this.getName() + '\'' +
+                ", address='" + this.getAddress() + '\'' +
+                ", phone='" + this.getPhone() + '\'' +
+                ", email='" + this.getEmail() + '\'' +
+                ", studentStatus=" + this.getStudentStatus() + '\'' +
                 '}';
     }
 }
@@ -284,9 +339,13 @@ class Employee extends Person {
     @Override
     public String toString() {
         return "Employee{" +
-                "office='" + office + '\'' +
-                ", salary='" + salary + '\'' +
-                ", dateHired=" + dateHired +
+                "name='" + this.getName() + '\'' +
+                ", address='" + this.getAddress() + '\'' +
+                ", phone='" + this.getPhone() + '\'' +
+                ", email='" + this.getEmail() + '\'' +
+                ", office='" + this.getOffice() + '\'' +
+                ", salary='" + this.getSalary() + '\'' +
+                ", dateHired=" + this.getDateHired() + '\'' +
                 '}';
     }
 }
@@ -328,8 +387,15 @@ class Faculty extends Employee {
     @Override
     public String toString() {
         return "Faculty{" +
-                "officeHours='" + officeHours + '\'' +
-                ", rank='" + rank + '\'' +
+                "name='" + this.getName() + '\'' +
+                ", address='" + this.getAddress() + '\'' +
+                ", phone='" + this.getPhone() + '\'' +
+                ", email='" + this.getEmail() + '\'' +
+                ", office='" + this.getOffice() + '\'' +
+                ", salary='" + this.getSalary() + '\'' +
+                ", dateHired=" + this.getDateHired() + '\'' +
+                "officeHours='" + this.getOfficeHours() + '\'' +
+                ", rank='" + this.getRank() + '\'' +
                 '}';
     }
 }
@@ -353,7 +419,14 @@ class Staff extends Employee {
     @Override
     public String toString() {
         return "Staff{" +
-                "little='" + little + '\'' +
+                "name='" + this.getName() + '\'' +
+                ", address='" + this.getAddress() + '\'' +
+                ", phone='" + this.getPhone() + '\'' +
+                ", email='" + this.getEmail() + '\'' +
+                ", office='" + this.getOffice() + '\'' +
+                ", salary='" + this.getSalary() + '\'' +
+                ", dateHired=" + this.getDateHired() + '\'' +
+                "little='" + this.getLittle() + '\'' +
                 '}';
     }
 }
