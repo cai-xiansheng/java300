@@ -22,7 +22,9 @@ public class Cheapter13 {
         geometricObjects[3] = new Square(true,40);
         geometricObjects[4] = new Square(true,50);
         for (int i = 0; i < 5; i++) {
-            if (geometricObjects[i].filled)
+            if (geometricObjects[i].filled){
+
+            }
         }
     }
 }
