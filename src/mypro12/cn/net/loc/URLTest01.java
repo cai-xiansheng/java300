@@ -24,7 +24,7 @@ import java.net.URL;
  */
 public class URLTest01 {
     public static void main(String[] args) throws MalformedURLException {
-        URL url = new URL("http://www.baidu.com:80/index?uname=shsxt&age=18#a");
+        URL url = new URL("http://www.baidu.com:80/index?uname=shsxt&age=18#acs");
         // 获取四个值
         System.out.println("协议：" + url.getProtocol());
         System.out.println("域名|ip：" + url.getHost());
