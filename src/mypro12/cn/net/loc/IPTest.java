@@ -1,7 +1,5 @@
 package mypro12.cn.net.loc;
 
-import algorithm.Acwing.Main;
-
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 
