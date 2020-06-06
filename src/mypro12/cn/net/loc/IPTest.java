@@ -8,7 +8,7 @@ import java.net.UnknownHostException;
  * @Description IP 定位一个节点：计算机、路由、通讯设备
  * InetAddress: 多个静态方法
  * 1. getLocalHost(): 获取本机
- * 2. getByName(): 根据域名DNS --》 IP地址
+ * 2. getByName(): 根据域名DNS --> IP地址
  *
  * 两个成员方法：
  * 1. getHostAddress: 返回地址
