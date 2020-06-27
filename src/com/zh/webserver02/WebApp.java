@@ -48,6 +48,7 @@ public class WebApp {
         try {
             clz = Class.forName(className);
             com.zh.webserver02.Servlet servlet = (com.zh.webserver02.Servlet)clz.getConstructor().newInstance();
+            // 反射
             return servlet;
         } catch (Exception e) {
             e.printStackTrace();
