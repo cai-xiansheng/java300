@@ -7,7 +7,7 @@ import java.lang.annotation.Target;
 
 /**
  * @author 张辉
- * @Description
+ * @Description MyTable注解
  * @create 2020-06-27 10:16
  */
 @Target(value = {ElementType.TYPE})

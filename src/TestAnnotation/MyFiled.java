@@ -7,7 +7,7 @@ import java.lang.annotation.Target;
 
 /**
  * @author 张辉
- * @Description
+ * @Description MyFiled注解
  * @create 2020-06-27 10:30
  */
 @Target(value = {ElementType.FIELD})
