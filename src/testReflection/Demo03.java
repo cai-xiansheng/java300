@@ -8,7 +8,7 @@ import java.lang.reflect.Method;
 
 /**
  * @author 张辉
- * @Description 通过反射API冬天操作：构造器、方法、属性
+ * @Description 通过反射API动态操作：构造器、方法、属性
  * @create 2020-06-27 21:17
  */
 @SuppressWarnings("all")
@@ -40,7 +40,6 @@ public class Demo03 {
             f.set(u4,"张三4"); // 通过反射直接写属性
             System.out.println(u4.getUname()); // 通过反射直接读属性的值
             System.out.println(f.get(u4)); // 通过反射直接读属性的值
-
 
         } catch (Exception e) {
             e.printStackTrace();
