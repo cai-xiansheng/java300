@@ -43,7 +43,7 @@ public class Demo02 {
 
             // 获取构造器信息
             Constructor[] constructors = clazz.getDeclaredConstructors();
-            Constructor c = clazz.getDeclaredConstructor(int.class,int.class,String.class);
+            Constructor c = clazz.getDeclaredConstructor(int.class, int.class, String.class);
             System.out.println("获得构造器：" + c);
             for (Constructor constructor : constructors) {
                 System.out.println("构造器：" + constructor);
