@@ -56,10 +56,10 @@ public class Demo01 {
 
 
         // 执行一个js文件（我们将a.js文件至于项目的src下即可）
-        URL url = Demo01.class.getClassLoader().getResource("testRhino/a.js");
-        FileReader fr = new FileReader(url.getPath());
-        engine.eval(fr);
-        fr.close(); // 由于只是测试，实际中必须要用try
+        //URL url = Demo01.class.getClassLoader().getResource("testRhino/a.js");
+        //FileReader fr = new FileReader(url.getPath());
+        //engine.eval(fr);
+        //fr.close(); // 由于只是测试，实际中必须要用try
 
     }
 }
