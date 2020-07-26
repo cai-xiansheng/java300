@@ -1,5 +1,6 @@
 package gof23.singleton;
 
+import java.io.ObjectStreamException;
 import java.io.Serializable;
 
 /**
@@ -24,6 +25,11 @@ public class SingletonDemo06 implements Serializable {
         if(instance == null) {
             instance = new SingletonDemo06();
         }
+        return instance;
+    }
+
+    // 反序列化时，如果定义了readResolve()则直接返回此方法指定的对象。而不需要单独再创建新的对象！
+    private Object readResolve() throws ObjectStreamException {
         return instance;
     }
 }

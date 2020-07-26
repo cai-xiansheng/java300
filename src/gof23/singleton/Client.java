@@ -26,7 +26,7 @@ public class Client {
         //System.out.println(s3);
         //System.out.println(s4);
 
-        // 通过反射序列化的方式构造多个对象
+        // 通过反射序列化（Serializable）的方式构造多个对象
         FileOutputStream fos = new FileOutputStream("d:/a.txt");
         ObjectOutputStream oos = new ObjectOutputStream(fos);
         oos.writeObject(s1);
@@ -37,8 +37,6 @@ public class Client {
         SingletonDemo06 s3 = (SingletonDemo06)ois.readObject();
         ois.close();
         System.out.println(s3);
-
-
 
     }
 }
