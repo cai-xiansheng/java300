@@ -2,7 +2,7 @@ package gof23.proxy.dynamicProxy;
 
 /**
  * @author 张辉
- * @Description
+ * @Description 动态代理模式
  * @create 2020-07-27 11:45
  */
 public interface Star {

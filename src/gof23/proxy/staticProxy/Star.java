@@ -2,7 +2,7 @@ package gof23.proxy.staticProxy;
 
 /**
  * @author 张辉
- * @Description
+ * @Description 静态代理模式
  * @create 2020-07-27 11:45
  */
 public interface Star {
