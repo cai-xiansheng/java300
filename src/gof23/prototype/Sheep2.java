@@ -1,16 +1,13 @@
 package gof23.prototype;
 
-import java.io.Serializable;
 import java.util.Date;
 
 /**
  * @author 张辉
- * @Description 原型模式（浅复制）
+ * @Description 原型模式深复制
  * @create 2020-07-26 13:10
  */
-public class Sheep implements Cloneable, Serializable {
-    // 序列化和反序列化必须实现Serializable接口，实现复制必须有Cloneable接口
-
+public class Sheep2 implements Cloneable{
     // 克隆
     private String name;
     private Date birthday;
@@ -19,10 +16,14 @@ public class Sheep implements Cloneable, Serializable {
     protected Object clone() throws CloneNotSupportedException {
         Object obj = super.clone(); // 直接调用Object 对象的克隆方法（clone()）
 
+        // 添加如下代码，实现深克隆
+        Sheep2 s = (Sheep2) obj;
+        s.birthday = (Date) this.birthday.clone(); // 把属性也进行克隆！
+
         return obj;
     }
 
-    public Sheep(String name, Date birthday) {
+    public Sheep2(String name, Date birthday) {
         this.name = name;
         this.birthday = birthday;
     }
