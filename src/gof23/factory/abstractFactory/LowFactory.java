@@ -8,16 +8,16 @@ package gof23.factory.abstractFactory;
 public class LowFactory  implements CarFactory{
     @Override
     public Engine createEngine() {
-        return new LuxuryEngine();
+        return new LowEngine();
     }
 
     @Override
     public Seat createSeat() {
-        return new LuxurySeat();
+        return new LowSeat();
     }
 
     @Override
     public Tyre createTyre() {
-        return new LuxuryTyre();
+        return new LowTyre();
     }
 }
