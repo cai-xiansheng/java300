@@ -1,46 +1,53 @@
 package testJDBC;
 
+import java.io.*;
 import java.sql.*;
 
 /**
  * @author 张辉
- * @Description 测试事物基本概念和用法
+ * @Description 测试BLOB二进制大对象的使用
+ *
  * @create 2020-07-31 13:33
  */
-public class Demo06 {
-    public static void main(String[] args) {
+public class Demo10 {
+
+
+    public static void main(String[] args) throws IOException {
         Connection conn = null;
         PreparedStatement ps = null;
-        PreparedStatement ps2 = null;
         ResultSet resultSet = null;
         try {
             // 加载驱动类
             Class.forName("com.mysql.cj.jdbc.Driver");
             conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/test1?serverTimezone=GMT%2B8", "root", "root");
 
-            conn.setAutoCommit(false); // JDBC 中默认自动提交事务
+            //ps = conn.prepareStatement("insert into t_user1 (username ,headImg) values (?, ?)");
+            //ps.setObject(1,"撒");
+            //ps.setBlob(2, new FileInputStream("d:/001.jpg"));
+            //ps.execute();
 
 
-            ps = conn.prepareStatement("insert into t_user (username, pwd, regTime, lastLoginTime) values (?, ?, ?, ?)");
-            ps.setObject(1, "张三");
-            ps.setObject(2, "123456");
-            Date date = new java.sql.Date(System.currentTimeMillis());
-            ps.setObject(3, date);
-            Timestamp timestamp = new Timestamp(System.currentTimeMillis()); // 如果需要插入指定日期，可以使用Calendar，DateFormat类
-            ps.setObject(4, timestamp);
+            ps = conn.prepareStatement("select * from t_user1 where id = ?");
+            ps.setObject(1, 3);
+            resultSet = ps.executeQuery();
+            while (resultSet.next()) {
 
-            ps.execute();
+                Blob b = resultSet.getBlob("headImg");
+                InputStream is = b.getBinaryStream();
 
-            conn.commit();
+
+                OutputStream os = new FileOutputStream("d:/a.jpg");
+                int temp = 0;
+                while ((temp = is.read()) != -1) {
+                    os.write(temp);
+                }
+            }
+
+
 
 
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
-            try {
-                conn.rollback();
-            } catch (SQLException ex) {
-                ex.printStackTrace();
-            }
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {

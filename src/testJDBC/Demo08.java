@@ -1,46 +1,56 @@
 package testJDBC;
 
 import java.sql.*;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 
 /**
  * @author 张辉
- * @Description 测试事物基本概念和用法
+ * @Description 测试时间处理（java.sql.Date,Time,Timestamp）,取出指定时间段的数据
  * @create 2020-07-31 13:33
  */
-public class Demo06 {
+public class Demo08 {
+
+    /**
+     * 将字符串代表的日期转为long类型的数字（格式：yyyy-MM-dd hh:mm:ss）
+     *
+     * @param dateStr
+     * @return
+     */
+    public static long str2Date(String dateStr) {
+        DateFormat format = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+        try {
+            return format.parse(dateStr).getTime();
+        } catch (ParseException e) {
+            e.printStackTrace();
+            return 0;
+        }
+
+    }
+
     public static void main(String[] args) {
         Connection conn = null;
         PreparedStatement ps = null;
-        PreparedStatement ps2 = null;
         ResultSet resultSet = null;
         try {
             // 加载驱动类
             Class.forName("com.mysql.cj.jdbc.Driver");
             conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/test1?serverTimezone=GMT%2B8", "root", "root");
 
-            conn.setAutoCommit(false); // JDBC 中默认自动提交事务
+            ps = conn.prepareStatement("select * from t_user where lastLoginTime > ? and lastLoginTime < ? order by lastLoginTime");
 
-
-            ps = conn.prepareStatement("insert into t_user (username, pwd, regTime, lastLoginTime) values (?, ?, ?, ?)");
-            ps.setObject(1, "张三");
-            ps.setObject(2, "123456");
-            Date date = new java.sql.Date(System.currentTimeMillis());
-            ps.setObject(3, date);
-            Timestamp timestamp = new Timestamp(System.currentTimeMillis()); // 如果需要插入指定日期，可以使用Calendar，DateFormat类
-            ps.setObject(4, timestamp);
-
-            ps.execute();
-
-            conn.commit();
-
+            Date start = new Date(str2Date("2020-07-17 19:52:02"));
+            Date end = new Date(str2Date("2020-07-24 11:39:24"));
+            ps.setDate(1, start);
+            ps.setDate(2, end);
+            resultSet = ps.executeQuery();
+            while (resultSet.next()) {
+                System.out.println(resultSet.getInt("id") + "--" + resultSet.getString("username") + "---" + resultSet.getTimestamp("lastLoginTime"));
+            }
 
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
-            try {
-                conn.rollback();
-            } catch (SQLException ex) {
-                ex.printStackTrace();
-            }
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
