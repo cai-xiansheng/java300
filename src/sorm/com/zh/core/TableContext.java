@@ -2,6 +2,8 @@ package sorm.com.zh.core;
 
 import sorm.com.zh.bean.ColumnInfo;
 import sorm.com.zh.bean.TableInfo;
+import sorm.com.zh.utils.JavaFileUtils;
+import sorm.com.zh.utils.StringUtils;
 
 import java.sql.Connection;
 import java.sql.DatabaseMetaData;
@@ -60,11 +62,46 @@ public class TableContext {
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
+
+        // 更新类结构
+        updateJavaPOFile();
+
+        // 加载PO包下面所有的类
+        loadPOTables();
     }
 
     public static Map<String, TableInfo> getTableInfoMap() {
         return tableInfoMap;
     }
+
+
+    /**
+     * 根据表结构，更新配置的PO包下面的Java类
+     * 实现了从表结构转化到类结构
+     */
+    public static void updateJavaPOFile() {
+        Map<String, TableInfo> tableInfoMap = TableContext.getTableInfoMap();
+        for(TableInfo tableInfo: tableInfoMap.values()) {
+            JavaFileUtils.createJavaPOFile(tableInfo, new MySQLTypeConvertor());
+        }
+    }
+
+    /**
+     * 加载PO包下面的类
+     */
+    public static void loadPOTables() {
+        for (TableInfo tableInfo: tableInfoMap.values()) {
+            Class clazz = null;
+            try {
+                clazz = Class.forName(
+                        DBManager.getConfiguration().getPoPackage() + "." + StringUtils.firstChar2UpperCase(tableInfo.gettName()));
+                poClassTableMap.put(clazz,tableInfo);
+            } catch (ClassNotFoundException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
 
     //public static void main(String[] args) {
     //    Map<String, TableInfo> tableInfoMap = getTableInfoMap();

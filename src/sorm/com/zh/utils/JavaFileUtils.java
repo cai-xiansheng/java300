@@ -103,15 +103,16 @@ public class JavaFileUtils {
         String packagePath = DBManager.getConfiguration().getPoPackage().replaceAll("\\.", "/");
 
         File file = new File(srcPath + packagePath);
-        System.out.println(file.getAbsolutePath() + "==============");
         if (!file.exists()) {
             // 如果指定目录不存在，则帮助用户建立出来
             file.mkdirs();
         }
 
 
-        try (BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(file));) {
+        try (BufferedWriter bufferedWriter = new BufferedWriter(
+                new FileWriter(file.getAbsoluteFile() + "/" + StringUtils.firstChar2UpperCase(tableInfo.gettName()) + ".java"));) {
             bufferedWriter.write(src);
+            System.out.println("建立表" + tableInfo.gettName() + "对应的java类：" + StringUtils.firstChar2UpperCase(tableInfo.gettName()) + ".java");
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -122,8 +123,9 @@ public class JavaFileUtils {
         //ColumnInfo columnInfo = new ColumnInfo("id", "int", 0);
         //JavaFieldGetSet f = createFieldGetSetSRC(columnInfo,new MySQLTypeConvertor());
         //f.toString();
-        Map<String, TableInfo> tableInfoMap = TableContext.getTableInfoMap();
-        TableInfo tableInfo = tableInfoMap.get("emp");
-        createJavaPOFile(tableInfo, new MySQLTypeConvertor());
+        //Map<String, TableInfo> tableInfoMap = TableContext.getTableInfoMap();
+        //for(TableInfo tableInfo: tableInfoMap.values()) {
+        //    JavaFileUtils.createJavaPOFile(tableInfo, new MySQLTypeConvertor());
+        //}
     }
 }

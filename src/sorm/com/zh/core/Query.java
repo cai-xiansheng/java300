@@ -22,6 +22,7 @@ public interface Query {
 
     /**
      * 将一个对象存储到数据库中
+     * 把对象不为null的属性往数据库中存储！如果数字为null则为0
      *
      * @param object 要存储的对象
      */
@@ -35,7 +36,7 @@ public interface Query {
      * @return
      * @instance delete from User where id = 2;
      */
-    public int delete(Class clazz, int id);
+    public void delete(Class clazz, Object id);
 
 
     /**
