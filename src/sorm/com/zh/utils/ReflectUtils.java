@@ -18,11 +18,25 @@ public class ReflectUtils {
     public static Object invokeGet(String fieldName, Object object) {
         try {
             Class clazz = object.getClass();
-            Method method = clazz.getMethod("get" + StringUtils.firstChar2UpperCase(fieldName), null);
+            //Method method = clazz.getMethod("get" + StringUtils.firstChar2UpperCase(fieldName), null);
+            Method method = clazz.getDeclaredMethod("get" + StringUtils.firstChar2UpperCase(fieldName), null);
             return method.invoke(object, null);
         } catch (Exception e) {
             e.printStackTrace();
             return null;
+        }
+    }
+
+
+    public static void invokeSet(Object object,String columnName,Object columnValue) {
+        // 调用rowObj对象的setUsername方法，将columnValue的值设置进去
+        Method method  = null;
+        try {
+            method = object.getClass().getDeclaredMethod("set" + StringUtils.firstChar2UpperCase(columnName),
+                    columnValue.getClass());
+            method.invoke(object, columnValue);
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 

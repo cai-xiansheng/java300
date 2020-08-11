@@ -81,7 +81,7 @@ public class TableContext {
      */
     public static void updateJavaPOFile() {
         Map<String, TableInfo> tableInfoMap = TableContext.getTableInfoMap();
-        for(TableInfo tableInfo: tableInfoMap.values()) {
+        for (TableInfo tableInfo : tableInfoMap.values()) {
             JavaFileUtils.createJavaPOFile(tableInfo, new MySQLTypeConvertor());
         }
     }
@@ -90,12 +90,12 @@ public class TableContext {
      * 加载PO包下面的类
      */
     public static void loadPOTables() {
-        for (TableInfo tableInfo: tableInfoMap.values()) {
+        for (TableInfo tableInfo : tableInfoMap.values()) {
             Class clazz = null;
             try {
                 clazz = Class.forName(
                         DBManager.getConfiguration().getPoPackage() + "." + StringUtils.firstChar2UpperCase(tableInfo.gettName()));
-                poClassTableMap.put(clazz,tableInfo);
+                poClassTableMap.put(clazz, tableInfo);
             } catch (ClassNotFoundException e) {
                 e.printStackTrace();
             }

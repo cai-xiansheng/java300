@@ -1,6 +1,7 @@
 package sorm.com.zh.core;
 
 import sorm.com.zh.bean.Configuration;
+import sorm.com.zh.pool.DBConnectionPool;
 
 import java.io.IOException;
 import java.sql.*;
@@ -12,7 +13,14 @@ import java.util.Properties;
  * @create 2020-08-10 12:25
  */
 public class DBManager {
+    /**
+     * 配置信息
+     */
     private static Configuration configuration;
+    /**
+     * 连接池对象
+     */
+    private static DBConnectionPool pool;
 
     static {
         // 静态代码块
@@ -32,9 +40,32 @@ public class DBManager {
         configuration.setUrl(properties.getProperty("url"));
         configuration.setUser(properties.getProperty("user"));
         configuration.setUsingDB(properties.getProperty("usingDB"));
+        configuration.setQueryClass(properties.getProperty("queryClass"));
+        configuration.setPoolMaxSize(Integer.parseInt(properties.getProperty("poolMaxSize")));
+        configuration.setPoolMinSize(Integer.parseInt(properties.getProperty("poolMinSize")));
+
+        // 加载TableContext类信息
+        //System.out.println(TableContext.class);
     }
 
+    /**
+     * 获得Connection连接的方法
+     *
+     * @return
+     */
     public static Connection getConnection() {
+        if (pool == null) {
+            pool = new DBConnectionPool();
+        }
+        return pool.getConnection();
+    }
+
+    /**
+     * 创建Connection连接的方法
+     *
+     * @return
+     */
+    public static Connection createConnection() {
         try {
             Class.forName(configuration.getDriver());
             return DriverManager.getConnection(configuration.getUrl(),
@@ -51,16 +82,7 @@ public class DBManager {
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
-        try {
-            statement.close();
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
-        }
-        try {
-            connection.close();
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
-        }
+        close(statement, connection);
     }
 
     public static void close(Statement statement, Connection connection) {
@@ -69,22 +91,18 @@ public class DBManager {
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
-        try {
-            connection.close();
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
-        }
+        close(connection);
     }
 
     public static void close(Connection connection) {
-        try {
-            connection.close();
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
-        }
+        pool.close(connection);
     }
 
-
+    /**
+     * 获取配置对象
+     *
+     * @return
+     */
     public static Configuration getConfiguration() {
         if (configuration == null) {
             return null;

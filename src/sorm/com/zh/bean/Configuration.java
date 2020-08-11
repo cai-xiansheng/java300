@@ -35,11 +35,24 @@ public class Configuration {
      * 扫描生成java类的包（po的意思是：Persistence Object持久化）
      */
     private String poPackage;
+    /**
+     * 项目使用的查询类是哪一个路径
+     */
+    private String queryClass;
+    /**
+     * 连接池中最小的连接数
+     */
+    private int poolMinSize;
+    /**
+     * 连接池中最大的连接数
+     */
+    private int poolMaxSize;
 
     public Configuration() {
     }
 
-    public Configuration(String driver, String url, String user, String pwd, String usingDB, String srcPath, String poPackage) {
+    public Configuration(String driver, String url, String user, String pwd, String usingDB, String srcPath,
+                         String poPackage, String queryClass, int poolMinSize, int poolMaxSize) {
         this.driver = driver;
         this.url = url;
         this.user = user;
@@ -47,6 +60,33 @@ public class Configuration {
         this.usingDB = usingDB;
         this.srcPath = srcPath;
         this.poPackage = poPackage;
+        this.queryClass = queryClass;
+        this.poolMinSize = poolMinSize;
+        this.poolMaxSize = poolMaxSize;
+    }
+
+    public int getPoolMinSize() {
+        return poolMinSize;
+    }
+
+    public void setPoolMinSize(int poolMinSize) {
+        this.poolMinSize = poolMinSize;
+    }
+
+    public int getPoolMaxSize() {
+        return poolMaxSize;
+    }
+
+    public void setPoolMaxSize(int poolMaxSize) {
+        this.poolMaxSize = poolMaxSize;
+    }
+
+    public String getQueryClass() {
+        return queryClass;
+    }
+
+    public void setQueryClass(String queryClass) {
+        this.queryClass = queryClass;
     }
 
     public String getDriver() {
